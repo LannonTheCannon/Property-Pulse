@@ -52,17 +52,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Load environment variables
-load_dotenv()
+
 
 # Setup #####################################################################################
-
-api_key = os.getenv('OPENAI_API_KEY')
-if not api_key:
-    st.error('OpenAI API key was not found. Please check your .env file.')
-    st.stop()
-
+# Load environment variables
+api_key = st.secrets['OPENAI_API_KEY']
 client = openai.OpenAI(api_key=api_key)
+
 logging.basicConfig(level=logging.INFO)
 ASSISTANT_ID = 'asst_kGpo0qVcgHp4R5kItDuUNMZB'
 THREAD_ID = 'thread_EiCMg9fI3uwF4cWUgWmM82ra'

@@ -14,6 +14,7 @@ from src.costs_roi_5 import costs_and_roi
 from src.next_steps_6 import next_steps
 import pandas as pd
 import sqlite3
+from database import Database
 
 # Set page config
 st.set_page_config(
@@ -52,7 +53,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
+# DB Connection #############################################################################
+db = Database()
 
 # Setup #####################################################################################
 # Load secret key
@@ -62,70 +64,8 @@ client = openai.OpenAI(api_key=api_key)
 logging.basicConfig(level=logging.INFO)
 ASSISTANT_ID = 'asst_uIhuW3xlt1ewEN6avGZJQ25l'
 THREAD_ID = 'thread_BofkryfRaWSseJ2BwkeFlD7J'
-conn = sqlite3.connect('../../Desktop/Property Pulse/A_Plus_Mortgage_Stuff/real_estate.db')
-cursor = conn.cursor()
 
-##############################################################################################
-
-# Create the properties table
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS properties (
-    id INTEGER PRIMARY KEY,
-    address TEXT,
-    price INTEGER,
-    bedrooms INTEGER,
-    bathrooms INTEGER,
-    description TEXT
-)
-''')
-
-data = """
-address|price|bedrooms|bathrooms|description
-123 Main St|300000|3|2|Beautiful house with garden, close to schools
-456 Oak Ave|450000|4|3|Spacious family home, recently renovated kitchen
-789 Pine Rd|275000|2|1|Cozy starter home, great for first-time buyers
-321 Elm St|500000|5|4|Luxurious estate with pool and guest house
-654 Maple Dr|325000|3|2|Charming bungalow, perfect for small families
-987 Birch Ln|600000|4|3|Modern home with open floor plan and large yard
-246 Cedar Ct|280000|2|1|Affordable townhouse, low maintenance
-135 Willow St|350000|3|2|Classic colonial, well-maintained with upgrades
-753 Aspen Blvd|410000|4|3|Contemporary design, near downtown amenities
-159 Redwood Rd|475000|4|3|Elegant home in a desirable neighborhood
-432 Birchwood Pl|320000|3|2|Renovated historic home, charming neighborhood
-876 Cherry St|450000|4|3|Spacious suburban house, excellent school district
-111 Pineapple Ln|330000|3|2|Eco-friendly home with solar panels
-222 Orange Dr|420000|4|3|Lakefront property with stunning views
-333 Lemon St|380000|3|2|Mountain cabin, secluded and private
-444 Lime Blvd|360000|3|2|Urban loft, close to public transport
-555 Mango Ct|440000|4|3|Beach house with private access
-777 Apple Ave|460000|4|3|Luxury condo, high-end amenities
-888 Banana Blvd|400000|3|2|Family home with large backyard
-999 Coconut Ct|340000|3|2|Newly built, modern architecture
-1010 Berry Ln|370000|3|2|Ranch-style house, one-story living
-1111 Melon Dr|450000|4|3|Townhouse with community pool
-1212 Peach St|380000|3|2|Single-family home in quiet cul-de-sac
-1313 Pear Blvd|395000|3|2|Chic apartment in vibrant neighborhood
-1414 Plum Pl|405000|3|2|Penthouse with skyline views
-"""
-
-df = pd.read_csv(io.StringIO(data), sep='|')
-df.to_sql('properties', conn, if_exists='replace', index=False)
-conn.commit()
-
-# Verify data was loaded #############################################################
-cursor.execute("SELECT COUNT(*) FROM properties")
-count = cursor.fetchone()[0]
-print(f"Number of properties in database: {count}")
-# Verify data was loaded #############################################################
-
-def execute_sql_query(query):
-    try:
-        result = pd.read_sql_query(query, conn)
-        return result
-    except Exception as e:
-        logging.error(f"Error executing SQL query: {e}")
-        return None
-
+# Main Functions for Response Retrieval ######################################################
 def wait_for_run_complete(thread_id, run_id):
     while True:
         try:
@@ -156,7 +96,7 @@ def fetch_response(user_input):
             wait_for_run_complete(THREAD_ID, active_run_id)
 
         sql_generation_prompt = f"""Given the following SQL table schema:
-    
+
     CREATE TABLE properties (
         id INTEGER PRIMARY KEY,
         address TEXT,
@@ -181,22 +121,20 @@ def fetch_response(user_input):
             thread_id=THREAD_ID,
             assistant_id=ASSISTANT_ID
         )
-        
+
         sql_query = wait_for_run_complete(THREAD_ID, run.id)
-        
         sql_query = sql_query.strip('`').replace('sql\n', '')
 
-        # !IMPORTANT! ################################# Execute the generated SQL query 
-        query_result = execute_sql_query(sql_query)
+        # Now using db.execute_query instead of the global function
+        query_result = db.execute_query(sql_query)
 
         if query_result is not None and not query_result.empty:
             query_result_str = query_result.to_string(index=False)
         else:
             query_result_str = "No results found for the given query."
 
-        # !IMPORTANT! ################################# Now, ask the Assistant to interpret the results
         interpretation_prompt = f"""SQL Query: {sql_query}
-        
+
 Query Result:
 {query_result_str}
 
@@ -218,9 +156,8 @@ Remember previous questions and context from this conversation when formulating 
             thread_id=THREAD_ID,
             assistant_id=ASSISTANT_ID
         )
-        
+
         response = wait_for_run_complete(THREAD_ID, run.id)
-        
         return response
 
     except openai.APIError as e:
@@ -235,6 +172,7 @@ Remember previous questions and context from this conversation when formulating 
         logging.error(f'Error in fetch_response: {str(e)}', exc_info=True)
         return "I apologize, but I'm having trouble processing that request. Is there anything specific about our real estate listings you'd like to know?"
 
+
 # Main function
 def main():
     st.sidebar.title("🏠 A+ Realty & Mortgage")
@@ -243,7 +181,7 @@ def main():
         "AI Chatbot Demo",
         "Integration Plan",
         "Implementation Timeline",
-        "Costs and ROI",
+        #"Costs and ROI",
         "Next Steps"
     ]
     selected_section = st.sidebar.radio("Navigation", sections)
@@ -256,8 +194,8 @@ def main():
         integration_plan()
     elif selected_section == "Implementation Timeline":
         implementation_timeline()
-    elif selected_section == "Costs and ROI":
-        costs_and_roi()
+    # elif selected_section == "Costs and ROI":
+    #     costs_and_roi()
     elif selected_section == "Next Steps":
         next_steps()
 ##

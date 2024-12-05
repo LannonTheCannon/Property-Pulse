@@ -6,31 +6,6 @@ def next_steps():
     st.markdown('<p class="big-font">Your Journey to AI-Powered Real Estate Excellence</p>', unsafe_allow_html=True)
     st.write("Let's embark on this transformative journey together")
 
-    # Timeline data
-    timeline_data = [
-        dict(Task="Test Integration", Start='2024-08-07', Finish='2024-08-28', Resource='Stage 1'),
-        dict(Task="Database Connection", Start='2024-08-21', Finish='2024-09-11', Resource='Stage 1'),
-        dict(Task="API Integration", Start='2024-09-04', Finish='2024-10-16', Resource='Stage 2'),
-        dict(Task="Testing and QA", Start='2024-10-02', Finish='2024-11-13', Resource='Stage 3'),
-        dict(Task="Final Deployment", Start='2024-11-06', Finish='2024-11-27', Resource='Stage 4'),
-    ]
-
-    # Convert string dates to datetime
-    for item in timeline_data:
-        item['Start'] = datetime.strptime(item['Start'], '%Y-%m-%d')
-        item['Finish'] = datetime.strptime(item['Finish'], '%Y-%m-%d')
-
-    # Create timeline visualization
-    fig = px.timeline(timeline_data, x_start="Start", x_end="Finish", y="Task", color="Resource")
-    fig.update_layout(
-        title='Project Integration Timeline',
-        xaxis_title='Date',
-        yaxis_title='Integration Phase',
-        height=400,
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
     # Detailed next steps
     st.subheader("Detailed Integration Steps")
 

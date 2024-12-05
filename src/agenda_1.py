@@ -1,83 +1,102 @@
-# agenda_1.py
 import streamlit as st
 
-def agenda():
-    st.markdown('<p class="big-font">Welcome to the AI-Powered Real Estate Chatbot Demo</p>', unsafe_allow_html=True)
-    st.write("Empowering A+ Realty & Mortgage with cutting-edge AI technology")
 
+def agenda():
+    # Hero Section
+    st.markdown('<h1 style="text-align: center;">Property Pulse</h1>', unsafe_allow_html=True)
+    st.markdown('<h3 style="text-align: center;">Your AI Real Estate Assistant</h3>', unsafe_allow_html=True)
+
+    # Main image and intro
     col1, col2 = st.columns([2, 1])
     with col1:
         st.markdown("""
-        Our AI-powered chatbot solution offers:
-        - 🎯 Highly accurate responses to property queries
-        - 🔄 Seamless handling of frequently changing listing data
-        - 🧠 Ability to answer complex, context-dependent questions
-        - 🚀 24/7 availability to engage with potential clients
+        ### Ask me anything about our properties! 👋
+
+        I can help you:
+        - Find homes within your budget 💰
+        - Compare different properties 🏠
+        - Learn about neighborhoods 🌳
+        - Get property details instantly ⚡
+
+        Just type your question in the chat below!
         """)
     with col2:
-        st.image("https://cdn.discordapp.com/attachments/1109716744978837587/1270829761387827332/ai_real_estate.jpg?ex=66b51ff1&is=66b3ce71&hm=3a963b2d2a0819334241f06c2f871a1467b102ac033ebe3eca94798aa315ba54&", width=300)
+        st.image('./images/ai_real_estate.jpg')
 
-    st.info("Navigate through the sections using the sidebar to explore the full capabilities of my solution.")
-    st.divider()
-    st.markdown('<p class="big-font">Today\'s Meeting Agenda</p>', unsafe_allow_html=True)
+    # Quick Start Guide
+    st.markdown("### 💡 Try asking questions like:")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("#### Finding Properties")
+        st.write("💬 'What homes are available under $400,000?'")
+        st.write("💬 'Show me houses with 3 bedrooms'")
+        st.write("💬 'Which properties have pools?'")
+
+    with col2:
+        st.markdown("#### Comparing Options")
+        st.write("💬 'What's the price range for 4-bedroom homes?'")
+        st.write("💬 'Tell me about downtown properties'")
+        st.write("💬 'Compare houses with large yards'")
+
+    # Features with simple icons
+    st.markdown("### ✨ What Makes Property Pulse Special")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        #### 🎯 For Home Buyers
+        - Quick answers about any property
+        - Easy price comparisons
+        - Neighborhood information
+        - Available 24/7
+        """)
+
+    with col2:
+        st.markdown("""
+        #### 🏆 For Real Estate Agents
+        - Automatic property matching
+        - Quick client responses
+        - Easy listing management
+        - More time for what matters
+        """)
+
+    # How it Works
+    st.markdown("### 🤔 How It Works")
     st.markdown("""
-    1. Introduction (3 minutes)
-    2. Client Needs Recap (5 minutes)
-    3. Proposed Solution: Hybrid AI-Database System (10 minutes)
-    4. Integration Plan (7 minutes)
-    5. Implementation Timeline (5 minutes)
-    6. Costs and ROI (10 minutes)
-    7. Key Benefits for A+ Realty & Mortgage (5 minutes)
-    8. Case Study or Success Story (3 minutes)
-    9. Next Steps and Commitment (7 minutes)
-    10. Q&A Session (10 minutes)
-    11. Closing Remarks (5 minutes)
+    1. **Ask a Question** - Type anything about properties
+    2. **Get Instant Answers** - AI finds the perfect matches
+    3. **Explore Details** - Learn more about each property
+    4. **Stay Informed** - Get updates on new listings
     """)
 
-    with st.expander("View Detailed Agenda"):
+    # Success Metrics in a friendly way
+    st.markdown("### 📈 Why People Love Property Pulse")
+
+    metric_col1, metric_col2, metric_col3 = st.columns(3)
+
+    with metric_col1:
+        st.metric("Super Fast", "2 seconds", "average response time")
+
+    with metric_col2:
+        st.metric("Super Smart", "94%", "accuracy")
+
+    with metric_col3:
+        st.metric("Super Helpful", "100+", "daily chats")
+
+    # Get Started Section
+    st.info("""
+    ### 👋 Ready to Start?
+    Click **"AI Chatbot Demo"** in the sidebar to start chatting!
+
+    Need help? Just ask "How can you help me?" in the chat.
+    """)
+
+    # Optional: Fun Facts
+    with st.expander("🎈 Fun Facts About Property Pulse"):
         st.markdown("""
-        1. **Introduction (3 minutes)**
-           - Brief overview of the meeting objectives
-        2. **Client Needs Recap (5 minutes)**
-           - Highly accurate chatbot responses
-           - Website and robots integration
-           - Flexibility for frequent listing data updates
-        3. **Proposed Solution: Hybrid AI-Database System (10 minutes)**
-           - Overview of system components:
-             - Real-time database for listings
-             - Natural Language to SQL (NL2SQL) system
-             - AI Language Model
-           - Explanation of how this ensures high accuracy and flexibility
-           - Demo of initial prototype (if available)
-        4. **Integration Plan (7 minutes)**
-           - Process for integrating with client's website
-           - Approach for robot integration
-           - Data update mechanisms for frequent listing changes
-        5. **Implementation Timeline (5 minutes)**
-           - 5-month timeline overview
-           - Breakdown of 4 project phases
-        6. **Costs and ROI (10 minutes)**
-           - Total project cost: $26,000
-           - Payment structure aligned with 4 phases
-           - Projected ROI:
-             - Estimated increase in lead generation
-             - Potential time saved for sales team
-             - Improved customer satisfaction metrics
-        7. **Key Benefits for A+ Realty & Mortgage (5 minutes)**
-           - 24/7 availability with highly accurate responses
-           - Improved customer engagement
-           - Competitive edge in the real estate market
-           - Scalability for growing inventory
-        8. **Case Study or Success Story (3 minutes)**
-           - Brief example of a similar implementation
-        9. **Next Steps and Commitment (7 minutes)**
-           - Proposal for immediate project initiation
-           - Discussion of first phase deliverables
-           - Request for $26,000 commitment over 5 months
-        10. **Q&A Session (10 minutes)**
-            - Address any concerns or questions
-        11. **Closing Remarks (5 minutes)**
-            - Recap of key benefits and timeline
-            - Express enthusiasm for the partnership
-            - Confirm next steps and commitment
+        - Can search through 1000+ properties in seconds
+        - Speaks in plain English (no real estate jargon!)
+        - Updates property info in real-time
+        - Remembers your preferences for better recommendations
         """)

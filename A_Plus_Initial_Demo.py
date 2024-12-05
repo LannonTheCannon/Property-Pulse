@@ -55,13 +55,13 @@ st.markdown("""
 
 
 # Setup #####################################################################################
-# Load environment variables
+# Load secret key
 api_key = st.secrets['OPENAI_API_KEY']
 client = openai.OpenAI(api_key=api_key)
 
 logging.basicConfig(level=logging.INFO)
-ASSISTANT_ID = 'asst_kGpo0qVcgHp4R5kItDuUNMZB'
-THREAD_ID = 'thread_EiCMg9fI3uwF4cWUgWmM82ra'
+ASSISTANT_ID = 'asst_uIhuW3xlt1ewEN6avGZJQ25l'
+THREAD_ID = 'thread_BofkryfRaWSseJ2BwkeFlD7J'
 conn = sqlite3.connect('../../Desktop/Property Pulse/A_Plus_Mortgage_Stuff/real_estate.db')
 cursor = conn.cursor()
 

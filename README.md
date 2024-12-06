@@ -4,7 +4,9 @@
 
 Property Pulse is an AI-powered real estate chatbot that helps real estate agents and clients navigate property listings with natural language queries. Built with OpenAI's Assistant API and Streamlit, it provides instant, accurate responses about properties while maintaining the personal touch that real estate demands.
 
-![Property Pulse Demo](https://property-pulse-walnut.streamlit.app)
+## 🎮 Try It Live!
+
+**[👉 Launch Property Pulse Demo](https://property-pulse-walnut.streamlit.app)**
 
 ## 🌟 Features
 

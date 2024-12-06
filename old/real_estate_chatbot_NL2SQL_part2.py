@@ -27,7 +27,7 @@ ASSISTANT_ID = 'asst_kGpo0qVcgHp4R5kItDuUNMZB'
 THREAD_ID = 'thread_EiCMg9fI3uwF4cWUgWmM82ra'
 
 # Database setup
-conn = sqlite3.connect('../../Desktop/Property Pulse/A_Plus_Mortgage_Stuff/real_estate.db')
+conn = sqlite3.connect('../../../Desktop/Property Pulse/A_Plus_Mortgage_Stuff/real_estate.db')
 cursor = conn.cursor()
 
 # Create the properties table

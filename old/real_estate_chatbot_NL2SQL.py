@@ -11,7 +11,7 @@ import pandas as pd
 import re
 
 # Set up the database
-conn = sqlite3.connect('../../Desktop/Property Pulse/A_Plus_Mortgage_Stuff/real_estate.db')
+conn = sqlite3.connect('../../../Desktop/Property Pulse/A_Plus_Mortgage_Stuff/real_estate.db')
 cursor = conn.cursor()
 
 # Create a properties table if it doesn't exist

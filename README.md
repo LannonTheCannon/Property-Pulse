@@ -14,10 +14,6 @@ Property Pulse is an AI-powered real estate chatbot that helps real estate agent
 - 24/7 availability for property inquiries
 - 94% query accuracy with 1.92s average response time
 
-## 🚀 Live Demo
-
-Try the live demo at [property-pulse-walnut.streamlit.app](https://property-pulse-walnut.streamlit.app)
-
 ## 🛠️ Local Development Setup
 
 ### Prerequisites
@@ -52,7 +48,7 @@ OPENAI_API_KEY = "your-api-key-here"
 
 5. Run the application
 ```bash
-streamlit run A_Plus_Initial_Demo.py
+streamlit run app.py
 ```
 
 ### Project Structure

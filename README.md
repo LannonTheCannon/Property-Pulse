@@ -104,4 +104,4 @@ Special thanks to A+ Realty & Mortgage Group for their collaboration in developi
 
 Lannon Khau - khaulannon@gmail.com
 
-Project Link: [https://github.com/yourusername/property-pulse](https://github.com/yourusername/property-pulse)
+Project Link: [https://github.com/yourusername/property-pulse](https://github.com/lannonthecannon/property-pulse)

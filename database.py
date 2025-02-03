@@ -4,7 +4,6 @@ import logging
 import io
 from pathlib import Path
 
-
 class Database:
     def __init__(self):
         # Get current directory where database.py is located
@@ -13,7 +12,7 @@ class Database:
         data_dir = current_dir / 'data'
         data_dir.mkdir(exist_ok=True)
         # Set database path
-        self.db_path = data_dir / 'real_estate.db'
+        self.db_path = data_dir / 'properties.db'
         self.conn = None
         self.cursor = None
         self.connect()
@@ -30,14 +29,26 @@ class Database:
     def setup_database(self):
         # Create tables
         self.cursor.execute('''
-        CREATE TABLE IF NOT EXISTS properties (
-            id INTEGER PRIMARY KEY,
-            address TEXT,
-            price INTEGER,
-            bedrooms INTEGER,
-            bathrooms INTEGER,
-            description TEXT
-        )
+            CREATE TABLE IF NOT EXISTS properties (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                host_id INTEGER,
+                host_name TEXT,
+                neighbourhood_group TEXT,
+                neighbourhood TEXT,
+                latitude REAL,
+                longitude REAL,
+                room_type TEXT,
+                price INTEGER,
+                minimum_nights INTEGER,
+                number_of_reviews INTEGER,
+                last_review TEXT,
+                reviews_per_month REAL,
+                calculated_host_listings_count INTEGER,
+                availability_365 INTEGER,
+                number_of_reviews_ltm INTEGER,
+                license TEXT
+            )
         ''')
 
         # Your sample data loading code here
@@ -46,12 +57,14 @@ class Database:
 
     def load_sample_data(self):
         # Your existing data string and loading logic
-        data = """address|price|bedrooms|bathrooms|description
-        123 Main St|300000|3|2|Beautiful house with garden, close to schools
-        456 Oak Ave|450000|4|3|Spacious family home, recently renovated kitchen
-        789 Pine Rd|275000|2|1|Cozy starter home, great for first-time buyers"""
+        # data = """address|price|bedrooms|bathrooms|description
+        # 123 Main St|300000|3|2|Beautiful house with garden, close to schools
+        # 456 Oak Ave|450000|4|3|Spacious family home, recently renovated kitchen
+        # 789 Pine Rd|275000|2|1|Cozy starter home, great for first-time buyers"""
 
-        df = pd.read_csv(io.StringIO(data), sep='|')
+        df = pd.read_csv('la_listings_vis.csv')
+
+        #df = pd.read_csv(io.StringIO(data), sep='|')
         df.to_sql('properties', self.conn, if_exists='replace', index=False)
 
     def execute_query(self, query):

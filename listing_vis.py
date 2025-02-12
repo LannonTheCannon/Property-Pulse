@@ -1,9 +1,12 @@
-
 import streamlit as st
 import pandas as pd
 from io import StringIO
 import openai
 import time
+import time
+
+from numpy.f2py.auxfuncs import isinteger
+
 from database import Database
 
 client = openai.OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
@@ -12,6 +15,7 @@ thread_id = 'thread_M8amhzCJORgwKihQPMKIBaMP'
 
 # initialize database
 db = Database()
+
 # Load Data from SQLite (Instead of CSV)
 df = db.execute_query("SELECT * FROM properties")
 
@@ -65,6 +69,7 @@ def update_assistant_with_dataset():
         )
         #st.success("Assistant updated with dataset information.")
         print('Assistant updated with dataset information')
+
     except Exception as e:
         #st.error(f"Error updating assistant: {str(e)}")
         print(f'Error updating assistant {str(e)}')
@@ -124,18 +129,37 @@ def display_ai_chat(client, assistant_id, thread_id):
 
 if __name__ == '__main__':
 
-    menu = int(input('Please enter a menu item: '))
+    againChoice = True
 
-    if menu == 1:
-        get_columns()
-    elif menu == 2:
-        view_listings()
-    elif menu == 3:
-        df_names()
-    elif menu == 4:
-        update_assistant_with_dataset()
-    elif menu == 5:
-        display_ai_chat(client, assistant_id, thread_id)
+    while againChoice:
+        menu = input('''Please enter a menu item: 
+        
+                1. Get Columns 
+                2. View Listings Headings 
+                3. Function Playground (Pandas) 
+                4. Update Assistant with Data 
+                5. Interface Chat
+                6. Enter any other key to exit 
+                
+        ''')
 
-    # func_call = choices[menu-1]()
-    # view_listings(df)
+        try:
+            if menu == '1':
+                get_columns()
+            elif menu == '2':
+                view_listings()
+            elif menu == '3':
+                df_names()
+            elif menu == '4':
+                update_assistant_with_dataset()
+            elif menu == '5':
+                display_ai_chat(client, assistant_id, thread_id)
+            else:
+                print('Exiting...')
+                time.sleep(2)
+                break
+
+        except ValueError:
+            pass
+
+        againChoice = (input('Would you like to try again? (Y/N)') == 'Y')

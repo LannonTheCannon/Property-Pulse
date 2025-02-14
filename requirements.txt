@@ -1,5 +1,5 @@
-streamlit==1.37.1
-openai==1.57.0
+streamlit==1.42.0
+openai==1.63.0
 pandas==2.2.2
 plotly==5.23.0
 numpy==2.0.1

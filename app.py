@@ -3,7 +3,6 @@ import pandas as pd
 import altair as alt
 import time
 import openai
-from dotenv import load_dotenv
 import os
 import logging
 import io

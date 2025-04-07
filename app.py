@@ -113,7 +113,7 @@ def fetch_response(user_input):
         client.beta.threads.messages.create(
             thread_id=THREAD_ID,
             role='user',
-            content=sql_generation_prompt
+            content=sql_generation_prompt,
         )
 
         run = client.beta.threads.runs.create(
@@ -128,7 +128,8 @@ def fetch_response(user_input):
         query_result = db.execute_query(sql_query)
 
         if query_result is not None and not query_result.empty:
-            query_result_str = query_result.to_string(index=False)
+            truncated_result = query_result.head(50)
+            query_result_str = truncated_result.to_string(index=False)
         else:
             query_result_str = "No results found for the given query."
 

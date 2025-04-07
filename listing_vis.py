@@ -11,7 +11,7 @@ from database import Database
 
 client = openai.OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 assistant_id = 'asst_uIhuW3xlt1ewEN6avGZJQ25l'
-thread_id = 'thread_M8amhzCJORgwKihQPMKIBaMP'
+thread_id = 'thread_07h06ai63JWKKcKkjuqKGyoA'
 
 # initialize database
 db = Database()
